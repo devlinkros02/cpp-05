@@ -1,0 +1,28 @@
+# Variables
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -MMD
+SRC = ./main.cpp ./Bureaucrat.cpp ./Form.cpp
+OBJ = $(SRC:.cpp=.o)
+DEP = $(SRC:.cpp=.d)
+TARGET = bureaucrat
+
+# Rules
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+-include ${DEP}
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ) ${DEP}
+
+fclean: clean
+	rm -f $(TARGET)
+
+re: fclean all
+
+.PHONY: all clean fclean re
