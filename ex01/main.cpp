@@ -6,43 +6,62 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:29:04 by dkros             #+#    #+#             */
-/*   Updated: 2025/09/09 22:22:08 by dkros            ###   ########.fr       */
+/*   Updated: 2025/09/16 17:12:16 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-int main(int argc, char **argv) {
+bool is_numeric(const std::string &string) {
 
-	if (argc != 3) {
-		std::cout << "Please provide 2 arguments name and grade. Example: ./bureaucrat Devlin 20" << std::endl;
-		return (1);
+	for (std::string::const_iterator i = string.begin(); i != string.end(); i++ ) {
+		if (!std::isdigit(*i)) {
+			return (false);
+		}
 	}
+	return true;
+}
 
+int main(int argc, char **argv) {
 	//Convert input grade to int
-	std::string input = argv[2];
-	int grade = atoi(input.c_str());
+	try {
 
-	//Create Bureaucrat with given arguments
-	Bureaucrat test(argv[1], grade);
+		if (argc != 3) {
+			throw(std::invalid_argument("Please provide 2 arguments name and grade. Example: ./bureaucrat Devlin 20"));
+		}
 
-	std::cout << test << std::endl;
+		if (!is_numeric(argv[2]))  {
+			throw (std::invalid_argument("Invalid grade."));
+		}
 
-	Form contract("Contract", 220, 50);
-	std::cout << contract << std::endl;
+		int grade = atoi(argv[2]);
 
-	test.signForm(contract);
-	std::cout << contract << std::endl;
-	test.increment();
-	std::cout << test << std::endl;
-	test.increment();
-	std::cout << test << std::endl;
-	test.increment();
-	std::cout << test << std::endl;
-
-	test.signForm(contract);
-	std::cout << contract << std::endl;
+		//Create Bureaucrat with given arguments
+		Bureaucrat test(argv[1], grade);
+	
+		std::cout << test << std::endl;
+	
+		Form contract("Contract", 50, 50);
+		std::cout << contract << std::endl;
+	
+		test.signForm(contract);
+		std::cout << contract << std::endl;
+		test.increment();
+		std::cout << test << std::endl;
+		test.increment();
+		std::cout << test << std::endl;
+		test.increment();
+		std::cout << test << std::endl;
+	
+		test.signForm(contract);
+		std::cout << contract << std::endl;
+		
+	}
+	catch (std::exception & e) {
+		std::cerr << "Error: " << e.what() <<  std::endl;
+		exit(1);
+	}
 
 	return (0);
 }

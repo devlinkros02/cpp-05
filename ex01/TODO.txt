@@ -1,4 +1,0 @@
-#TODO
-
-- Fix the constructor of Form. The try catch block does not prevent the Form object from being created with invalid arguments, although the error message is being displayed.
-- Make sure to copy the updated bureaucrat class from ex01 to ex00 without beSigned(). in ex00 is an outdated version now.

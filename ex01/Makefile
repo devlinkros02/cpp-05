@@ -1,6 +1,6 @@
 # Variables
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -MMD
+CXXFLAGS = -Wall -Wextra -Werror -MMD -std=c++11
 SRC = ./main.cpp ./Bureaucrat.cpp ./Form.cpp
 OBJ = $(SRC:.cpp=.o)
 DEP = $(SRC:.cpp=.d)

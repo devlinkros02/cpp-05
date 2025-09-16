@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 20:16:03 by dkros             #+#    #+#             */
-/*   Updated: 2025/09/09 22:10:23 by dkros            ###   ########.fr       */
+/*   Updated: 2025/09/16 17:10:42 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,14 @@
 Form::Form(std::string name, int gradeToSign, int gradeToExec)
 	:_name(name), _gradeToSign(gradeToSign), _gradeToExec(gradeToExec)
 {
-	try
-	{
-		if (gradeToSign < 1 || gradeToExec < 1)
-			throw Form::GradeTooHighException("GradeTooHighException: gradeToSign and gradeToExec must be lower than 1.");
-		if (gradeToSign > 150 || gradeToExec > 150)
-			throw Form::GradeTooLowException("GradeTooLowException: gradeToSign and gradeToExec must be higher than 150.");
-		this->_isSigned = false;
-		std::cout << "Default constructor called for Form " << name << "." << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+
+	if (gradeToSign < 1 || gradeToExec < 1)
+		throw Form::GradeTooHighException("Form::GradeTooHighException: gradeToSign and gradeToExec must be lower than 1.");
+	if (gradeToSign > 150 || gradeToExec > 150)
+		throw Form::GradeTooLowException("Form::GradeTooLowException: gradeToSign and gradeToExec must be higher than 150.");
+	this->_isSigned = false;
+	std::cout << "Default constructor called for Form " << name << "." << std::endl;
+
 }
 
 Form::Form(const Form &copy)
@@ -95,7 +90,7 @@ bool Form::beSigned(const Bureaucrat &bureaucrat)
 	try
 	{
 		if (bureaucrat.getGrade() > getGradeToSign()) {
-			throw(Form::GradeTooLowException("GradeTooLowException: This Bureaucrat's grade is too low to sign this form."));
+			throw(Form::GradeTooLowException("Form::GradeTooLowException: This Bureaucrat's grade is too low to sign this form."));
 		}
 		_isSigned = true;
 		return true;
