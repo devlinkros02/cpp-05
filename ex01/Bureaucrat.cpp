@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:09:41 by dkros             #+#    #+#             */
-/*   Updated: 2025/09/16 17:11:25 by dkros            ###   ########.fr       */
+/*   Updated: 2025/09/16 17:15:20 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,18 @@ Bureaucrat::Bureaucrat(std::string const name, int grade)
 	: _name(name)
 {
 	std::cout << "Default constructor called for Bureaucrat " << name << "." << std::endl;
-	try
-	{
-		if (_name.empty()) {
-			throw(std::invalid_argument("invalid_argument: name is required"));
-		}
-		if (grade > 150) {
-			throw(Bureaucrat::GradeTooLowException("Bureaucrat::GradeTooLowException: grade should be higher than 150"));
-		}
-		if (grade < 1) {
-			throw(Bureaucrat::GradeTooHighException("Bureaucrat::GradeTooHighException: grade should be lower than 1"));
-		}
-		_grade = grade;
+
+	if (_name.empty()) {
+		throw(std::invalid_argument("invalid_argument: name is required"));
 	}
-	catch (std::exception & e)
-	{
-		std::cerr << e.what() << std::endl;
-		exit(1);
+	if (grade > 150) {
+		throw(Bureaucrat::GradeTooLowException("Bureaucrat::GradeTooLowException: grade should be higher than 150"));
 	}
+	if (grade < 1) {
+		throw(Bureaucrat::GradeTooHighException("Bureaucrat::GradeTooHighException: grade should be lower than 1"));
+	}
+	_grade = grade;
+
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &copy)

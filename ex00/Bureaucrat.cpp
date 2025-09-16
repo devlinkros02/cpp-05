@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:09:41 by dkros             #+#    #+#             */
-/*   Updated: 2025/09/09 20:36:58 by dkros            ###   ########.fr       */
+/*   Updated: 2025/09/16 17:15:49 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,18 @@ Bureaucrat::Bureaucrat(std::string const name, int grade)
 	: _name(name)
 {
 	std::cout << "Creating Bureaucrat " << name << "." << std::endl;
-	try
-	{
-		if (_name.empty()) {
-			throw(std::invalid_argument("invalid_argument: name is required"));
-		}
-		if (grade > 150) {
-			throw(Bureaucrat::GradeTooLowException("GradeTooLowException: grade should be between 1 and 150"));
-		}
-		if (grade < 1) {
-			throw(Bureaucrat::GradeTooHighException("GradeTooHighException: grade should be between 1 and 150"));
-		}
-		_grade = grade;
+
+	if (_name.empty()) {
+		throw(std::invalid_argument("invalid_argument: name is required"));
 	}
-	catch (std::exception & e)
-	{
-		std::cerr << e.what() << std::endl;
-		exit(1);
+	if (grade > 150) {
+		throw(Bureaucrat::GradeTooLowException("GradeTooLowException: grade should be between 1 and 150"));
 	}
+	if (grade < 1) {
+		throw(Bureaucrat::GradeTooHighException("GradeTooHighException: grade should be between 1 and 150"));
+	}
+	_grade = grade;
+
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &copy)
